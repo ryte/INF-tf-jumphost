@@ -1,15 +1,14 @@
 locals {
-  name       = "${var.environment}-${var.project}-jumphost"
-  short_name = "${substr(var.environment, 0, var.short_name_length)}-${substr(var.project, 0, var.short_name_length)}-jumphost"
+  name = "${var.tags["Environment"]}-jumphost"
 }
 
 locals {
-  tags = {
-    CID         = "${var.cid}"
-    Environment = "${var.environment}"
-    Module      = "jumphost"
-    Name        = "${local.name}"
-    Owner       = "${var.owner}"
-    Project     = "${var.project}"
-  }
+  short_name = "${substr("${local.name}", 0, min(20, length(local.name)))}",
+  tags = "${merge(
+    var.tags,
+    map(
+      "Module", "jumphost",
+      "Name", "${local.name}"
+    )
+  )}"
 }
