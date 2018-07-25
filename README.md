@@ -3,10 +3,6 @@
 Terraform module for setting up a jumphost to access services in private subnets
 
 
-NOTE: currently it's only possible to deploy the cluster on EC2 instances, which are created and provisioned by this module
-
-NOTE: the EC2 deployment works with a autoscaling group, so some changes are not applied to the machines until they are recreated by the ASG
-
 This project is [internal open source](https://en.wikipedia.org/wiki/Inner_source)
 and currently maintained by the [INF](https://github.com/orgs/onpage-org/teams/inf).
 
