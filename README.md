@@ -160,8 +160,8 @@ sudo service amazon-ssm-agent start
 
 ## Changelog
 
-- 0.1.0 - Initial release.
 - 0.1.1 - Add additional security group parameter
+- 0.1.0 - Initial release.
 
 ## License
 
