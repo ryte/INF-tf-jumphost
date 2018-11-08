@@ -50,4 +50,4 @@ variable "access_cidr_blocks" {
   type        = "list"
   default     = ["62.96.159.233/32"]
   description = "CIDR blocks granting access to port 22 of the jumphost."
-
+}
