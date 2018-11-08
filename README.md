@@ -14,6 +14,11 @@ and currently maintained by the [INF](https://github.com/orgs/onpage-org/teams/i
     -  __type__: `list`
     -  __default__: ["62.96.159.233/32"]
 
+- `additional_sgs`
+    - __description__: a list of additional security groups for the jumphost
+    - __type__: `list`
+    - __default__: []
+
 - `ami`
     -  __description__: 'the ami id to use for the instances'
     -  __type__: `string`
@@ -155,7 +160,8 @@ sudo service amazon-ssm-agent start
 
 ## Changelog
 
-0.1.0 - Initial release.
+- 0.1.0 - Initial release.
+- 0.1.1 - Add additional security group parameter
 
 ## License
 

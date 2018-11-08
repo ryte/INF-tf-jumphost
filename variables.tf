@@ -12,6 +12,11 @@ variable "hostname" {
   default = "jump"
 }
 
+variable "additional_sgs" {
+  type = "list"
+  default = []
+}
+
 variable "short_name_length" {
   default = 4
 }
