@@ -99,7 +99,7 @@ module "jumphost" {
 
   access_cidr_blocks = "${var.access_cidr_blocks}"
 
-  source = "git@github.com:ryte/INF-tf-jumphost.git?ref=v0.1.1"
+  source = "github.com/ryte/INF-tf-jumphost.git?ref=v0.1.1"
 }
 ```
 
