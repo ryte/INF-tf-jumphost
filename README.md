@@ -4,7 +4,7 @@ Terraform module for setting up a jumphost to access services in private subnets
 
 
 This project is [internal open source](https://en.wikipedia.org/wiki/Inner_source)
-and currently maintained by the [INF](https://github.com/orgs/onpage-org/teams/inf).
+and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ## Module Input Variables
 
@@ -99,7 +99,7 @@ module "jumphost" {
 
   access_cidr_blocks = "${var.access_cidr_blocks}"
 
-  source = "git@github.com:onpage-org/INF-tf-jumphost.git?ref=master"
+  source = "git@github.com:ryte/INF-tf-jumphost.git?ref=v0.1.1"
 }
 ```
 
