@@ -54,7 +54,7 @@ DOC
 
 variable "access_cidr_blocks" {
   type        = list(string)
-  default     = ["62.96.159.233/32"]
+  default     = ["0.0.0.0/0"]
   description = "CIDR blocks granting access to port 22 of the jumphost."
 }
 
