@@ -27,7 +27,7 @@ variable "short_name_length" {
 }
 
 variable "instance_type" {
-  default = "t2.nano"
+  default = "t3.nano"
 }
 
 variable "ami" {
