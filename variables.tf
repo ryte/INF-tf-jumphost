@@ -1,19 +1,24 @@
 variable "tags" {
-  type = "map"
+  type        = map(string)
   description = "common tags to add to the ressources"
-  default = {}
+  default     = {}
 }
-variable "domain" {}
 
-variable "subnet_id" {}
-variable "vpc_id" {}
+variable "domain" {
+}
+
+variable "subnet_id" {
+}
+
+variable "vpc_id" {
+}
 
 variable "hostname" {
   default = "jump"
 }
 
 variable "additional_sgs" {
-  type = "list"
+  type    = list(string)
   default = []
 }
 
@@ -22,7 +27,7 @@ variable "short_name_length" {
 }
 
 variable "instance_type" {
-  default = "t2.nano"
+  default = "t3.nano"
 }
 
 variable "ami" {
@@ -34,7 +39,7 @@ variable "user_data" {
 }
 
 variable "instance_tags" {
-  type    = "map"
+  type    = map(string)
   default = {}
 
   description = <<DOC
@@ -44,10 +49,12 @@ This must be a map like this
     key = "value"
   }
 DOC
+
 }
 
 variable "access_cidr_blocks" {
-  type        = "list"
-  default     = ["62.96.159.233/32"]
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
   description = "CIDR blocks granting access to port 22 of the jumphost."
 }
+

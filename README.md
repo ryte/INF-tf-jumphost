@@ -84,22 +84,22 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ```hcl
 module "jumphost" {
-  tags      = "${local.common_tags}"
-  ami       = "${data.terraform_remote_state.ami.amazon_linux}"
-  domain    = "${var.domain}"
-  subnet_id = "${data.terraform_remote_state.vpc.subnet_public[0]}"
-  vpc_id    = "${data.terraform_remote_state.vpc.vpc_id}"
+  tags      = local.common_tags
+  ami       = data.terraform_remote_state.ami.amazon_linux
+  domain    = var.domain
+  subnet_id = data.terraform_remote_state.vpc.subnet_public[0]
+  vpc_id    = data.terraform_remote_state.vpc.vpc_id
 
   // set tag for SSH key deployment via SSM
   instance_tags = {
     SSM-sshkeys-priv-jumphost = "true"
   }
 
-  user_data  = "${data.template_cloudinit_config.config_jumphost.rendered}"
+  user_data  = data.template_cloudinit_config.config_jumphost.rendered
 
-  access_cidr_blocks = "${var.access_cidr_blocks}"
+  access_cidr_blocks = var.access_cidr_blocks
 
-  source = "github.com/ryte/INF-tf-jumphost.git?ref=v0.1.1"
+  source = "github.com/ryte/INF-tf-jumphost.git?ref=v0.2.0"
 }
 ```
 
@@ -116,12 +116,12 @@ data "template_cloudinit_config" "config_jumphost" {
 
   part {
     content_type = "text/x-shellscript"
-    content      = "${data.template_file.cloudinit_jumphost.rendered}"
+    content      = data.template_file.cloudinit_jumphost.rendered
   }
 }
 
 data "template_file" "cloudinit_jumphost" {
-  template = "${file("userdata/cloudinit_jumphost.sh")}"
+  template = file("userdata/cloudinit_jumphost.sh")
 }
 ```
 
@@ -160,6 +160,7 @@ sudo service amazon-ssm-agent start
 
 ## Changelog
 
+- 0.2.0 - Upgrade to terraform 0.12.x
 - 0.1.1 - Add additional security group parameter
 - 0.1.0 - Initial release.
 
