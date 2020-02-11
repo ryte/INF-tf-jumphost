@@ -12,7 +12,7 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 - `access_cidr_blocks`
     -  __description__: a list of CIDR blocks which are allowed ssh access
     -  __type__: `list`
-    -  __default__: ["62.96.159.233/32"]
+    -  __default__: ["0.0.0.0/0"]
 
 - `additional_sgs`
     - __description__: a list of additional security groups for the jumphost
