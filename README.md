@@ -27,6 +27,10 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
     -  __description__: the module creates a route53 domain entry and therefore need the domain in which the entry should be created
     -  __type__: `string`
 
+- `environment`
+    -  __description__: the environment this jumphost is started in (e.g. 'testing')
+    -  __type__: `string`
+
 - `hostname`
     -  __description__: hostname of the jumphost
     -  __type__: `string`
@@ -84,11 +88,12 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ```hcl
 module "jumphost" {
-  tags      = local.common_tags
-  ami       = data.terraform_remote_state.ami.amazon_linux
-  domain    = var.domain
-  subnet_id = data.terraform_remote_state.vpc.subnet_public[0]
-  vpc_id    = data.terraform_remote_state.vpc.vpc_id
+  tags        = local.common_tags
+  ami         = data.terraform_remote_state.ami.amazon_linux
+  domain      = var.domain
+  environment = var.environment
+  subnet_id   = data.terraform_remote_state.vpc.subnet_public[0]
+  vpc_id      = data.terraform_remote_state.vpc.vpc_id
 
   // set tag for SSH key deployment via SSM
   instance_tags = {
@@ -99,7 +104,7 @@ module "jumphost" {
 
   access_cidr_blocks = var.access_cidr_blocks
 
-  source = "github.com/ryte/INF-tf-jumphost.git?ref=v0.2.0"
+  source = "github.com/ryte/INF-tf-jumphost.git?ref=v0.2.1"
 }
 ```
 
@@ -160,6 +165,7 @@ sudo service amazon-ssm-agent start
 
 ## Changelog
 
+- 0.2.1 - Add variable `environment` instead of reading from tags
 - 0.2.0 - Upgrade to terraform 0.12.x
 - 0.1.1 - Add additional security group parameter
 - 0.1.0 - Initial release.

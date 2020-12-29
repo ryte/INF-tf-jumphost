@@ -7,6 +7,9 @@ variable "tags" {
 variable "domain" {
 }
 
+variable "environment" {
+}
+
 variable "subnet_id" {
 }
 

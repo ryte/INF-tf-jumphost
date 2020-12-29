@@ -1,5 +1,5 @@
 locals {
-  name = "${var.tags["Environment"]}-jumphost"
+  name = "${var.environment}-jumphost"
 }
 
 locals {
