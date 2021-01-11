@@ -60,4 +60,3 @@ variable "access_cidr_blocks" {
   default     = ["0.0.0.0/0"]
   description = "CIDR blocks granting access to port 22 of the jumphost."
 }
-

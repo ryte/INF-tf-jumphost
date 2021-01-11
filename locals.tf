@@ -13,3 +13,6 @@ locals {
   )
 }
 
+locals {
+  instance_tags = merge(local.tags, var.instance_tags)
+}

@@ -1,5 +1,6 @@
 resource "aws_eip" "eip" {
-  vpc = true
+  vpc  = true
+  tags = local.tags
 }
 
 data "aws_route53_zone" "zone" {
@@ -17,4 +18,3 @@ resource "aws_route53_record" "record" {
   type    = "A"
   zone_id = data.aws_route53_zone.zone.id
 }
-

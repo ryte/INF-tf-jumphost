@@ -21,10 +21,10 @@ resource "aws_iam_instance_profile" "profile" {
 
 resource "aws_iam_role" "role" {
   assume_role_policy = data.aws_iam_policy_document.trust_policy.json
+  tags               = local.tags
 }
 
 resource "aws_iam_role_policy_attachment" "ssm" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
   role       = aws_iam_role.role.name
 }
-
