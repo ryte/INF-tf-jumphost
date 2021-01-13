@@ -1,5 +1,5 @@
 locals {
-  name = "${var.tags["Environment"]}-jumphost"
+  name = "${var.environment}-jumphost"
 }
 
 locals {
@@ -13,3 +13,6 @@ locals {
   )
 }
 
+locals {
+  instance_tags = merge(local.tags, var.instance_tags)
+}

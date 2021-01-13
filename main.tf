@@ -7,6 +7,8 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
   alarm_name          = "EC2AutoRecover-${local.name}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
 
+  tags = local.tags
+
   dimensions = {
     InstanceId = aws_instance.instance.id
   }
@@ -29,10 +31,9 @@ resource "aws_instance" "instance" {
   iam_instance_profile = aws_iam_instance_profile.profile.name
   instance_type        = var.instance_type
   subnet_id            = var.subnet_id
-  tags                 = merge(local.tags, var.instance_tags)
+  tags                 = merge(local.instance_tags, {type = "operations"})
 
   user_data = var.user_data
 
   vpc_security_group_ids = concat([aws_security_group.default.id, aws_security_group.cosg.id], var.additional_sgs)
 }
-
