@@ -16,14 +16,14 @@ resource "aws_security_group" "default" {
     cidr_blocks = var.access_cidr_blocks
   }
 
-  tags = merge(local.tags, {Role = "default"})
+  tags   = merge(local.tags, { Role = "default" })
   vpc_id = var.vpc_id
 }
 
 resource "aws_security_group" "cosg" {
   name_prefix = "${local.short_name}-jump-cosg-sg"
-  tags = merge(local.tags, {Role = "COSG"})
-  vpc_id = var.vpc_id
+  tags        = merge(local.tags, { Role = "COSG" })
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port = 22

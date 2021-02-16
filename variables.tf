@@ -1,62 +1,82 @@
 variable "tags" {
-  type        = map(string)
   description = "common tags to add to the ressources"
+  type        = map(string)
   default     = {}
 }
 
 variable "domain" {
+  description = "The module creates a route53 domain entry and therefore need the domain in which the entry should be created"
+  type        = string
 }
 
 variable "environment" {
+  description = "The environment this jumphost is started in (e.g. 'testing')"
+  type        = string
 }
 
 variable "subnet_id" {
+  description = "A subnet id in which to deploy the jumphost"
+  type        = string
 }
 
 variable "vpc_id" {
+  description = "The VPC the ASG should be deployed in"
+  type        = string
 }
 
 variable "hostname" {
-  default = "jump"
+  description = "Hostname of the jumphost"
+  default     = "jump"
 }
 
 variable "additional_sgs" {
-  type    = list(string)
-  default = []
+  description = "A list of additional security groups for the jumphost"
+  type        = list(string)
+  default     = []
 }
 
 variable "short_name_length" {
-  default = 4
+  description = "Desired string length which is applied to various naming strings, to make the names shorter"
+  default     = 4
 }
 
 variable "instance_type" {
-  default = "t3.nano"
+  description = "Type of machine to run on"
+  default     = "t3.nano"
 }
 
 variable "ami" {
-  description = "Make sure this is a RPM based system."
+  description = "The AMI id to use for the instances. Make sure this is a RPM based system."
+  type        = string
 }
 
 variable "user_data" {
-  default = ""
+  description = "A rendered bash script wich gets injected in the instance as user_data (run once on initialisation)"
+  default     = ""
 }
 
 variable "instance_tags" {
-  type    = map(string)
-  default = {}
-
   description = <<DOC
-Tags to be added to each EC2 instances.
-This must be a map like this
- {
-    key = "value"
-  }
+Tags to be added only to EC2 instances part of the cluster, used for SSH key deployment
+    ```
+    [{
+        key                 = "InstallCW"
+        value               = "true"
+        propagate_at_launch = true
+    },
+    {
+        key                 = "test"
+        value               = "Test2"
+        propagate_at_launch = true
+    }]```
 DOC
 
+  type    = map(string)
+  default = {}
 }
 
 variable "access_cidr_blocks" {
+  description = "A list of CIDR blocks which are allowed ssh access"
   type        = list(string)
   default     = ["0.0.0.0/0"]
-  description = "CIDR blocks granting access to port 22 of the jumphost."
 }
