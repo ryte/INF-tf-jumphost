@@ -31,7 +31,7 @@ resource "aws_instance" "instance" {
   iam_instance_profile = aws_iam_instance_profile.profile.name
   instance_type        = var.instance_type
   subnet_id            = var.subnet_id
-  tags                 = merge(local.instance_tags, {type = "operations"})
+  tags                 = merge(local.instance_tags, { type = "operations" })
 
   user_data = var.user_data
 

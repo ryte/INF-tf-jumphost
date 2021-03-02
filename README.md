@@ -6,39 +6,90 @@ Terraform module for setting up a jumphost to access services in private subnets
 This project is [internal open source](https://en.wikipedia.org/wiki/Inner_source)
 and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
-## Module Input Variables
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
 
+The following requirements are needed by this module:
 
-- `access_cidr_blocks`
-    -  __description__: a list of CIDR blocks which are allowed ssh access
-    -  __type__: `list`
-    -  __default__: ["0.0.0.0/0"]
+- terraform (>= 0.12)
 
-- `additional_sgs`
-    - __description__: a list of additional security groups for the jumphost
-    - __type__: `list`
-    - __default__: []
+## Providers
 
-- `ami`
-    -  __description__: 'the ami id to use for the instances'
-    -  __type__: `string`
+The following providers are used by this module:
 
-- `domain`
-    -  __description__: the module creates a route53 domain entry and therefore need the domain in which the entry should be created
-    -  __type__: `string`
+- aws
 
-- `environment`
-    -  __description__: the environment this jumphost is started in (e.g. 'testing')
-    -  __type__: `string`
+## Required Inputs
 
-- `hostname`
-    -  __description__: hostname of the jumphost
-    -  __type__: `string`
-    -  __default__: "jump"
+The following input variables are required:
 
+### ami
 
-- `instance_tags`
-    -  __description__: Tags to be added only to EC2 instances part of the cluster, used for SSH key deployment
+Description: The AMI id to use for the instances. Make sure this is a RPM based system.
+
+Type: `string`
+
+### domain
+
+Description: The module creates a route53 domain entry and therefore need the domain in which the entry should be created
+
+Type: `string`
+
+### environment
+
+Description: The environment this jumphost is started in (e.g. 'testing')
+
+Type: `string`
+
+### subnet\_id
+
+Description: A subnet id in which to deploy the jumphost
+
+Type: `string`
+
+### vpc\_id
+
+Description: The VPC the ASG should be deployed in
+
+Type: `string`
+
+## Optional Inputs
+
+The following input variables are optional (have default values):
+
+### access\_cidr\_blocks
+
+Description: A list of CIDR blocks which are allowed ssh access
+
+Type: `list(string)`
+
+Default:
+
+```json
+[
+  "0.0.0.0/0"
+]
+```
+
+### additional\_sgs
+
+Description: A list of additional security groups for the jumphost
+
+Type: `list(string)`
+
+Default: `[]`
+
+### hostname
+
+Description: Hostname of the jumphost
+
+Type: `string`
+
+Default: `"jump"`
+
+### instance\_tags
+
+Description: Tags to be added only to EC2 instances part of the cluster, used for SSH key deployment
     ```
     [{
         key                 = "InstallCW"
@@ -50,40 +101,61 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
         value               = "Test2"
         propagate_at_launch = true
     }]
-    ```
+```
 
-    -  __type__: `list`
-    -  __default__: []
+Type: `map(string)`
 
-- `instance_type`
-    -  __description__: type of machine to run on
-    -  __type__: `string`
-    -  __default__: "t2.nano"
+Default: `{}`
 
-- `short_name_length`
-    -  __description__: desired string length which is applied to various naming strings, to make the names shorter
-    -  __type__: `string`
-    -  __default__: 4
+### instance\_type
 
-- `subnet_id`
-    -  __description__: a subnet id in which to deploy the jumphost
-    -  __type__: `string`
+Description: Type of machine to run on
 
-- `tags`
-    -  __description__: a map of tags which is added to all supporting ressources
-    -  __type__: `map`
-    -  __default__: {}
+Type: `string`
 
-- `user_data`
-    -  __description__: a rendered bash script wich gets injected in the instance as user_data (run once on initialisation)
-    -  __type__: `string`
-    -  __default__: ""
+Default: `"t3.nano"`
 
-- `vpc_id`
-    -  __description__: the VPC the ASG should be deployed in
-    -  __type__: `string`
+### short\_name\_length
 
+Description: Desired string length which is applied to various naming strings, to make the names shorter
 
+Type: `number`
+
+Default: `4`
+
+### tags
+
+Description: common tags to add to the ressources
+
+Type: `map(string)`
+
+Default: `{}`
+
+### user\_data
+
+Description: A rendered bash script wich gets injected in the instance as user\_data (run once on initialisation)
+
+Type: `string`
+
+Default: `""`
+
+## Outputs
+
+The following outputs are exported:
+
+### cosg
+
+Description: Security group to be added to all instances the jumphost should have access to
+
+### fqdn
+
+Description: FQDN of the jumphost
+
+### ip
+
+Description: Elastic IP of the jumphost
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Usage
 
 ```hcl
@@ -143,21 +215,6 @@ sudo service amazon-ssm-agent start
 ```
 
 
-## Outputs
-
-- `cosg`
-    -  __description__: Security group to be added to all instances the jumphost should have access to
-    -  __type__: `string`
-
-- `fqdn`
-    -  __description__: fqdn of the jumphost
-    -  __type__: `string`
-
-- `ip`
-    -  __description__: elastic ip of the jumphost
-    -  __type__: `string`
-
-
 ## Authors
 
 - [Armin Grodon](https://github.com/x4121)
@@ -171,6 +228,5 @@ sudo service amazon-ssm-agent start
 - 0.1.0 - Initial release.
 
 ## License
-
 
 This software is released under the MIT License (see `LICENSE`).
