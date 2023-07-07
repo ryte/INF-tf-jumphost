@@ -9,11 +9,14 @@ resource "aws_security_group" "default" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = var.access_cidr_blocks
+  dynamic "ingress" {
+    for_each = var.access_cidr_blocks
+    content {
+      from_port = 22
+      to_port = 22
+      protocol = "tcp"
+      cidr_blocks = [ ingress.value ]
+    }
   }
 
   tags   = merge(local.tags, { Role = "default" })
